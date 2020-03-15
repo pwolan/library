@@ -1,0 +1,8 @@
+#books_list-link:hover {
+  color: #7f8c8d !important;
+}
+
+#book-add .portfolio-item-caption {
+  background-color: rgb(26, 188, 156);
+  opacity: 1;
+}

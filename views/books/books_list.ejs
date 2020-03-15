@@ -1,0 +1,26 @@
+<section class="page-section portfolio" id="books_list">
+  <!--id=portfolio -->
+  <div class="container">
+    <!-- Portfolio Section Heading -->
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+      Twoja kolekcja
+    </h2>
+
+    <!-- Icon Divider -->
+    <div class="divider-custom">
+      <div class="divider-custom-line"></div>
+      <div class="divider-custom-icon">
+        <i class="fas fa-book-open fa-2x"></i>
+      </div>
+      <div class="divider-custom-line"></div>
+    </div>
+
+    <!-- Books cards -->
+    <div class="row">
+      <%- include('./book_card-add') %> 
+      <% books.forEach(book => { %>
+        <%- include('./book_card', {book})%>        
+      <% }) %>
+    </div>
+  </div>
+</section>
