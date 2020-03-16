@@ -4,11 +4,12 @@
     <input
       class="form-control"
       name=<%= field.name %>
-      type="text"
+      type="<%= field.type || 'text'%>"
       placeholder=<%= field.label %>
       required="required"
       data-validation-required-message="Please enter your name."
+      value="<%= field.value %>" 
     />
-    <p class="help-block text-danger"></p>
+    <p class="help-block text-danger"><%= field.errMsg || '' %> </p>
   </div>
 </div>

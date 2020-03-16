@@ -12,19 +12,53 @@ router.get("/", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-  console.log(req.body);
   const { title, author, cover } = req.body;
-  Book.add(title, author, cover);
+  Book.add({title, author, cover});
   res.redirect("/");
-  // res.render("books/bookDetails", { name });
 });
 
 router.get("/new", (req, res) => {
-  let fields = [
-    { label: "Tytuł", name: "title" },
-    { label: "Autor", name: "author" },
-    { label: "Okładka", name: "cover" }
-  ];
-  res.render("books/new/book_new", { form: fields });
+  let fields = Book.fields;
+  let form = {
+    action: "/books/add",
+    method: "POST",
+    fields,
+    buttonCaption: "Add"
+  };
+
+  res.render("books/new/", { form });
 });
+
+router.get("/remove/:id", (req, res) => {
+  const { id } = req.params;
+  Book.remove(id);
+  res.redirect("/");
+});
+
+router.get("/edit/:id", (req, res) => {
+  const { id } = req.params;
+  Book.getOne(id, (err, book) => {
+    let newFields = Book.fields.map(({ label, name }) => ({
+      label,
+      name,
+      value: book[name]
+    }));
+    let form = {
+      fields: newFields,
+      buttonCaption: "Edit",
+      action: `/books/editaction/${id}`,
+      method: "POST"
+    };
+
+    res.render("books/edit/", { book, form });
+  });
+});
+
+router.post("/editaction/:id", (req, res) => {
+  const { title, author, cover } = req.body;
+  const { id } = req.params;
+  Book.update(id, {title, author, cover});
+  res.redirect("/");
+});
+
 module.exports = router;

@@ -6,3 +6,57 @@
   background-color: rgb(26, 188, 156);
   opacity: 1;
 }
+
+/* card component */
+.card {
+  /* border: none; */
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  height: 350px;
+}
+.card-caption {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.2s ease-in-out;
+  background-color: rgba(26, 188, 156, 0.9);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.card:hover .card-caption,
+.card-add .card-caption {
+  opacity: 1;
+}
+.card-img {
+  object-fit: cover;
+  height: 100%;
+}
+.card-caption-content {
+  text-align: center;
+  color: #fff;
+  font-size: 1.5rem;
+}
+.card-caption-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+.card-button {
+  display: block;
+  background: transparent;
+  font-size: 50px;
+  margin: 10px 20px 20px 20px;
+  border: none;
+}
+
+/* #/ card component */
