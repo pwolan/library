@@ -1,42 +1,47 @@
-const db = require("../database/db").books;
+const { pool } = require("../database/config");
 
-exports.add = ({ title, author, cover }) => {
-  let insertData = {
-    title,
-    author,
-    cover,
-    date: new Date().getTime()
-  };
-  db.insert(insertData, (err, newDoc) => {
-    console.log(newDoc);
-  });
+exports.add = async ({ title, author, cover }) => {
+  let date = new Date().getDate();
+  let query = `
+    INSERT INTO books (title, author, cover, date)
+    VALUES ($1,$2,$3,$4)
+  `;
+  await pool.query(query, [title, author, cover, date]);
 };
-exports.getAll = callback => {
-  db.find({}, callback);
+exports.getAll = async () => {
+  let query = `
+    SELECT * FROM books
+  `;
+  let data = await pool.query(query);
+  return data.rows;
 };
-exports.remove = id => {
-  db.remove({ _id: id }, (err, n) => {
-    if (err) console.log(err);
-    console.log(n);
-  });
+exports.remove = async id => {
+  let query = `
+    DELETE from books
+    WHERE id=$1
+  `;
+  try {
+    await pool.query(query, [id]);
+  } catch (err) {
+    console.log(err);
+  }
 };
-exports.getOne = (id, callback) => {
-  db.findOne({ _id: id }, callback);
+exports.getOne = async id => {
+  let query = `
+  SELECT * FROM books
+  WHERE id=${id}
+ `;
+  let data = await pool.query(query);
+  return data.rows[0];
 };
 
-exports.update = (id, { title, author, cover }) => {
-  db.update(
-    { _id: id },
-    {
-      title,
-      author,
-      cover
-    },
-    {},
-    (err, num) => {
-      if (err) console.log(err);
-    }
-  );
+exports.update = async (id, { title, author, cover }) => {
+  let query = `
+    UPDATE books
+    SET title=$1, author=$2, cover=$3
+    WHERE id=$4
+  `;
+  await pool.query(query, [title, author, cover, id]);
 };
 
 exports.fields = [

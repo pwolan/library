@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const morgan = require("morgan");
 const cors = require("cors");
-
+const PostgreSqlStore = require("connect-pg-simple")(session);
 
 //template engine
 app.set("views", path.join(__dirname, "views"));
@@ -22,16 +22,18 @@ app.use(express.static(__dirname + "/public"));
 app.use(cookieParser());
 app.use(
   session({
-    key: "special_key",
+    store: new PostgreSqlStore({
+      conString: require("./database/config").connectionString
+    }),
+    key: "session_sid",
     secret: "secret",
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
-      expires: 600000
+      expires: 60000000
     }
   })
 );
-// app.use(require("./middlewares/users").clearOldCookies);
 
 //add controller
 app.use(require("./controllers/index.controller.js"));

@@ -60,3 +60,52 @@
 }
 
 /* #/ card component */
+/* .bouncing {
+  animation: bouncing 8s infinite ease-in-out;
+} */
+
+/* for now */
+a > i {
+  transition: 1s;
+}
+a:hover > i {
+  animation: bouncing 2.5s infinite ease-in-out;
+}
+
+@keyframes bouncing {
+  0% {
+    transform: scale(0.9);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  75% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+/* @keyframes bouncing {
+  0% {
+    transform: scale(0.9);
+  }
+  5% {
+    transform: scale(1.05);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  15% {
+    transform: scale(0.98);
+  }
+  20% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+} */

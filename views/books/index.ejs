@@ -5,9 +5,12 @@
   </head>
   <body>
     <%- include('../partials/navbar') %> 
-    <%- include('./index/heading') %>
+    <%- include('./index/heading', {user}) %>
     <%- include('./index/books_list', {books}) %>
     <%- include('../partials/footer') %>
     <%- include('../partials/scripts')%> 
+    <%- include('./index/rememberScroll')%> 
+
+
   </body>
 </html>

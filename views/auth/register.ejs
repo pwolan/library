@@ -4,7 +4,7 @@
     <%- include('../partials/head')  %> 
   </head>
   <body>
-    <%- include('../partials/navbar')  %> 
+    <%- include('./navbar', {authAction:'login'}) %>
 
     <%- include('./header', {title: 'Zarejestruj się', icon: 'user-lock'})  %> 
     <%- include('../utilities/form', {form})  %> 

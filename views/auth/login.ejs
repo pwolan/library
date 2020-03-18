@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('../partials/head')  %> 
+    <%- include('../partials/head') %>
   </head>
   <body>
-    <%- include('../partials/navbar')  %> 
-    <%- include('./header', {title: 'Zaloguj się', icon: 'unlock'})  %> 
-
-    <%- include('../utilities/form', {form})  %> 
-
-    <%- include('../partials/footer')  %> 
-    <%- include('../partials/scripts')%> 
+    <%- include('./navbar', {authAction:'register'}) %>
+    <%- include('./header', {title: 'Zaloguj się', icon:'unlock'}) %> 
+    <%- include('../utilities/form', {form}) %> 
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts')%>
   </body>
 </html>

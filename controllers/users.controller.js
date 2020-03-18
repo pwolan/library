@@ -1,54 +1,85 @@
 const express = require("express");
 const router = express.Router();
-const { pool } = require("../database/config");
 const User = require("../models/user");
-let fields = [
-  { label: "Login", name: "login" },
-  { label: "Mail", name: "mail", type: "mail" },
-  { label: "Password", name: "password", type: "password" }
-];
-let fieldsLogin = [
-  { label: "Login", name: "login" },
-  { label: "Password", name: "password", type: "password" }
-];
+const { redirectMain, redirectLogin } = require("../middlewares/authorisation");
+
 router
   .route("/register")
-  .get((req, res) => {
+  .get(redirectMain, (req, res) => {
+    console.log(req.sessionID);
     let form = {
       action: "/register",
       method: "POST",
-      fields,
+      fields: User.registerFields,
       buttonCaption: "Register"
     };
     res.render("auth/register", { form });
   })
-  .post((req, res) => {
+  .post(async (req, res) => {
     console.log(req.body);
-    //TODO
-    res.end();
+    //TODO express-validator
+    const { login, password, mail } = req.body;
+    if (login && password && mail) {
+      try {
+        if (!(await User.exist(login))) {
+          const userID = await User.register({ login, password, mail });
+          req.session.user = {
+            id: userID,
+            login,
+            password,
+          };
+          res.status(200).redirect("/books");
+        } else {
+          console.log("Użytkownik już istnieje!");
+          res.redirect("back");
+        }
+      } catch (err) {
+        console.log(err);
+        res.redirect("back");
+      }
+    } else {
+      res.redirect("back");
+    }
   });
 
-router.get("/login", (req, res) => {
-  let form = {
-    action: "/login",
-    method: "POST",
-    fields: fieldsLogin,
-    buttonCaption: "Log in"
-  };
-  // pool.query(
-  //   "INSERT INTO books (author, title, cover) VALUES ($1,$2,$3)",
-  //   ["Autor", "Tytuł", "urlll"],
-  //   (err, data) => {
-  //     console.log(data);
-  //     res.end(data);
-  //   }
-  // );
-  pool.query("SELECT * FROM books", (err, data) => {
-    console.log(data);
-    res.end();
+router
+  .route("/login")
+  .get(redirectMain, (req, res) => {
+    let form = {
+      action: "/login",
+      method: "POST",
+      fields: User.loginFields,
+      buttonCaption: "Log in"
+    };
+
+    res.render("auth/login", { form });
+  })
+  .post(async (req, res) => {
+    const { login, password } = req.body;
+    //TODO validation
+    if (login && password) {
+      const { succes, userID, avatar } = await User.login({ login, password });
+      if (succes) {
+        console.log(userID);
+        req.session.user = {
+          id: userID,
+          login,
+          password,
+          avatar
+        };
+        res.redirect("/books");
+      } else {
+        res.end("złe hasło!");
+        // res.redirect("/login");
+      }
+    }
   });
 
-  // res.render("auth/login", { form });
+router.get("/logout", redirectLogin, (req, res) => {
+  res.clearCookie("session_sid");
+  req.session.destroy(err => {
+    res.redirect("/login");
+  });
 });
 
 module.exports = router;

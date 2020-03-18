@@ -12,13 +12,32 @@
           <br />
           <div id="success"></div>
           <div class="form-group">
-            <button
-              type="submit"
-              class="btn btn-primary btn-xl d-block mx-auto"
-              id="sendMessageButton"
-            >
-              <%= form.buttonCaption %>
-            </button>
+            <div class="row">
+              <button
+                type="submit"
+                class="btn btn-primary btn-xl d-block mx-auto"
+                id="sendMessageButton"
+              >
+                <%= form.buttonCaption %>
+              </button>
+              <% if (form.secondButton) { %> <% if (form.secondButton.href) { %>
+              <a
+                href="<%= form.secondButton.href || '#' %> "
+                class="btn btn-primary btn-xl d-block mx-auto"
+              >
+                <%= form.secondButton.caption %>
+              </a>
+              <% } else{ %>
+              <button
+                type="submit"
+                class="btn btn-primary btn-xl d-block mx-auto"
+                name="route"
+                value="<%= form.secondButton.value%>"
+              >
+                <%= form.secondButton.caption %>
+              </button>
+              <% } %> <% } %>
+            </div>
           </div>
         </form>
       </div>
