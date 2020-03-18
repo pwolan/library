@@ -1,4 +1,4 @@
-const db = require("../database/db");
+const db = require("../database/db").books;
 
 exports.add = ({ title, author, cover }) => {
   let insertData = {
@@ -34,7 +34,7 @@ exports.update = (id, { title, author, cover }) => {
     },
     {},
     (err, num) => {
-      console.log(num);
+      if (err) console.log(err);
     }
   );
 };

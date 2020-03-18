@@ -4,4 +4,9 @@ const Database = new Datastore({
   autoload: true
 });
 
-module.exports = Database;
+exports.books = Database;
+
+exports.users = new Datastore({
+  filename: "./database/users.db",
+  autoload: true
+});
