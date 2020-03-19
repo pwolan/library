@@ -38,4 +38,5 @@ app.use(
 //add controller
 app.use(require("./controllers/index.controller.js"));
 
-app.listen("3000", () => console.log("Listen on 3000"));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log("Listen on " + port));
