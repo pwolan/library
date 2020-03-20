@@ -1,18 +1,19 @@
 const { pool } = require("../database/config");
 
-exports.add = async ({ title, author, cover }) => {
+exports.add = async (userID,{ title, author, cover }) => {
   let date = new Date().getDate();
   let query = `
-    INSERT INTO books (title, author, cover, date)
-    VALUES ($1,$2,$3,$4)
+    INSERT INTO books (title, author, cover, date, userID)
+    VALUES ($1,$2,$3,$4,$5)
   `;
-  await pool.query(query, [title, author, cover, date]);
+  await pool.query(query, [title, author, cover, date, userID]);
 };
-exports.getAll = async () => {
+exports.getAll = async (userID) => {
   let query = `
     SELECT * FROM books
+    where userID=$1
   `;
-  let data = await pool.query(query);
+  let data = await pool.query(query,[userID]);
   return data.rows;
 };
 exports.remove = async id => {

@@ -26,9 +26,9 @@ router
           req.session.user = {
             id: userID,
             login,
-            password,
+            password
           };
-          res.status(200).redirect("/books");
+          res.status(200).redirect(`/users/${userID}/books`);
         } else {
           console.log("Użytkownik już istnieje!");
           res.redirect("back");
@@ -67,10 +67,10 @@ router
           password,
           avatar
         };
-        res.redirect("/books");
+        res.redirect(`/users/${userID}/books`);
       } else {
-        res.end("złe hasło!");
-        // res.redirect("/login");
+        // res.end("złe hasło!");
+        res.redirect("/login");
       }
     }
   });
