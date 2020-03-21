@@ -1,0 +1,13 @@
+<div class="control-group">
+  <div
+    class="form-group floating-label-form-group
+     floating-label-form-group-with-value  controls mb-3 pb-0
+     <%= field.hidden ? 'control-group-hidden' : '' %> "
+  >
+    <label><%= field.label %> </label>
+    <input class="form-control" name=<%= field.name %> type="<%= field.type || 'text'%>"
+    placeholder=<%= field.label %> required="required" data-validation-required-message="Please
+    enter your name." value="<%= field.value %>" />
+    <p class="help-block text-danger"><%= field.errMsg || '' %></p>
+  </div>
+</div>

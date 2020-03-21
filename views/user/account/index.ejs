@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../partials/head') %>
+  </head>
+  <body>
+    <%- include('../../partials/navbar') %>
+    <%- include('./header')  %> 
+
+    <%- include('./form', {form}) %>
+    <%- include('./form', {form: passwordForm}) %>
+    
+    <%- include('../../partials/footer') %>
+    <%- include('../../partials/scripts')%> 
+  </body>
+</html>

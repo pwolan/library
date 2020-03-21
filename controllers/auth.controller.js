@@ -22,13 +22,9 @@ router
     if (login && password && mail) {
       try {
         if (!(await User.exist(login))) {
-          const userID = await User.register({ login, password, mail });
-          req.session.user = {
-            id: userID,
-            login,
-            password
-          };
-          res.status(200).redirect(`/users/${userID}/books`);
+          const user = await User.register({ login, password, mail });
+          req.session.user = user;
+          res.status(200).redirect(`/books`);
         } else {
           console.log("Użytkownik już istnieje!");
           res.redirect("back");
@@ -58,16 +54,11 @@ router
     const { login, password } = req.body;
     //TODO validation
     if (login && password) {
-      const { succes, userID, avatar } = await User.login({ login, password });
+      const { succes, user } = await User.login({ login, password });
       if (succes) {
-        console.log(userID);
-        req.session.user = {
-          id: userID,
-          login,
-          password,
-          avatar
-        };
-        res.redirect(`/users/${userID}/books`);
+        req.session.user = user;
+        console.log(user);
+        res.redirect(`/books`);
       } else {
         // res.end("złe hasło!");
         res.redirect("/login");

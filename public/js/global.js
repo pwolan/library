@@ -19,5 +19,16 @@ $(() => {
     // animated top scrolling
     $("body, html").animate({ scrollTop: pos });
   });
-});
 
+  //handling form changes
+  $(".form-control").on("focus", function(e) {
+    $(this)
+      .parent()
+      .addClass("floating-label-form-group-with-focus");
+  });
+  $(".form-control").on("focusout", function(e) {
+    $(this)
+      .parent()
+      .removeClass("floating-label-form-group-with-focus");
+  });
+});

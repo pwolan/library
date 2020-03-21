@@ -65,10 +65,10 @@
 } */
 
 /* for now */
-a > i {
+a i {
   transition: 1s;
 }
-a:hover > i {
+a:hover i {
   animation: bouncing 2.5s infinite ease-in-out;
 }
 
@@ -109,3 +109,7 @@ a:hover > i {
     transform: scale(0.9);
   }
 } */
+
+.control-group-hidden {
+  display: none;
+}

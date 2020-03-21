@@ -6,7 +6,6 @@
   <body>
     <%- include('../partials/navbar') %> 
     <%- include('./index/heading', {user}) %>
-    <h1>User: <%= user.login %>  </h1>
     <%- include('./index/books_list', {books, user}) %>
     <%- include('../partials/footer') %>
     <%- include('../partials/scripts')%> 
