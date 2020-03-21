@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/book");
 
-
 router.get("/", async (req, res) => {
   console.log(req.url);
   let user = req.session.user;
@@ -32,7 +31,7 @@ router
     const { title, author, cover } = req.body;
     const { id } = req.session.user;
     Book.add(id, { title, author, cover });
-    let newRoute = req.body.route || "books";
+    let newRoute = req.body.route || "../";
     res.redirect(newRoute);
   });
 
